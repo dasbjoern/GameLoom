@@ -1,4 +1,4 @@
-package com.gameloom.GameLoom;
+package com.bjorn.gameloom;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

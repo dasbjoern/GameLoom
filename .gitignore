@@ -21,3 +21,6 @@ buildNumber.properties
 HELP.md
 mvnw*
 
+application.properties
+
+steam.sql

@@ -1,4 +1,4 @@
-package com.gameloom.GameLoom.controller;
+package com.bjorn.gameloom.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ApplicationController {
     
-    @GetMapping("/")
+    @GetMapping("/welcome")
         public String homePage(){
             return "home";
         }
