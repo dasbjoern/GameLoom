@@ -1,0 +1,90 @@
+#root {
+  /* display: inline-block; */
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  
+}
+.lists {
+  
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 20px;
+  flex-wrap: nowrap;
+  /* align-items: flex-start; */
+  /* margin: 10px; */
+  
+}
+.container {
+  /* width: 48%; */
+  min-width: 160px;
+  /* overflow-x: auto; */
+  overflow-x: auto;
+
+
+  
+}
+p {
+  font-size: 16px;
+}
+ul {
+  /* box-sizing: border-box; */
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* flex-wrap: nowrap; Prevents wrapping of items onto the next line */
+  /* overflow-x: auto; Allows scrolling horizontally */
+  gap: 10px;
+  overflow-x: auto;
+  /* height: 100%; */
+}
+
+li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-right: 10px; /* Adds space between list items */
+  background-color: grey;
+  max-width: 120px;
+
+}
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

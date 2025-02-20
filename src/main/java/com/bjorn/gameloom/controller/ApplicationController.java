@@ -10,7 +10,7 @@ public class ApplicationController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping("/welcome")
         public String homePage(){
-            return "home";
+            return "forward:/index.html";
         }
     
    
