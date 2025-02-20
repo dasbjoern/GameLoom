@@ -7,5 +7,4 @@ import com.bjorn.gameloom.model.Game;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long>{
-    
 }
