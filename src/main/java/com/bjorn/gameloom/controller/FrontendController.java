@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bjorn.gameloom.model.Game;
 import com.bjorn.gameloom.model.SteamGame;
 import com.bjorn.gameloom.model.SteamResponse;
 import com.bjorn.gameloom.service.GameService;
@@ -20,8 +22,10 @@ import reactor.core.publisher.Mono;
 @CrossOrigin(origins = "http://localhost:3000")
 public class FrontendController {
 
-    @Autowired
+    // @Autowired
     private SteamApiService steamApiService;
+    // @Autowired
+    // private GameService gameService;
 
     public FrontendController(SteamApiService steamApiService){
         this.steamApiService = steamApiService;
@@ -33,4 +37,11 @@ public class FrontendController {
             List<SteamGame> games = response.block().getItems();
         return games;
     }
+
+    // @GetMapping("/games")
+    // public List<Game> addedGames(){
+    
+    //     return gameService.getAllGames();
+    // }
+    
 }

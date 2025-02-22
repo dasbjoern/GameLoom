@@ -13,75 +13,82 @@ function GetSteamGlobalTop(steam, loading, error){
   // const url = "http://localhost:5173/api";
 
 
-  // const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
 
-  // useEffect(() => 
-  //   {
-  //   axios.get("http://localhost:8080/api/hello")
-  //     .then(response => {
-  //       setSelectedItems(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('There was an error fetching the items!', error);
-  //     });
-  // }, []);
+  useEffect(() => 
+    {
+    axios.get("http://localhost:8080/data/games/all")
+      .then(response => {
+        console.log("test" + response.data);
+        setSelectedItems(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the items!', error);
+      });
+  }, []);
    
       
-  // const addItem = (add) => {
+  const addItem = (add) => {
     
     
 
-  //   if(selectedItems.find((element) => {return add.name === element.name})){
+    if(selectedItems.find((element) => {return add.name === element.name})){
       
-  //     console.log("Already added");
-  //   }
-  //   else{
-  //     // item.preventDefault();
-  //     // setSelectedItems([add, ...selectedItems]);
-  //     // const game = { item.name, image };
-  //     add.flag="add";
+      console.log("Already added");
+    }
+    else{
+      // item.preventDefault();
+      // setSelectedItems([add, ...selectedItems]);
+      // const game = { item.name, image };
+      // add.flag="add";
 
-  //     axios.post('http://localhost:5000/api/items', add)
-  //       .then(response => {
+      axios.post('http://localhost:8080/data/games/add', add)
+        .then(response => {
           
-  //         setSelectedItems([...selectedItems, response.data]);
-  //         // setName('');
-  //         // setLogo('');
+          setSelectedItems([...selectedItems, response.data]);
+          // setName('');
+          // setLogo('');
 
-  //       })
-  //       .catch(error => {
-  //         console.error('There was an error adding the item!', error);
-  //       });
-  //   }
-  //   console.log(selectedItems);
+        })
+        .catch(error => {
+          console.error('There was an error adding the item!', error);
+        });
+    }
+    console.log(selectedItems);
     
-  // };
+  };
 
-  // const delItem = (item) => {
-  //   if(selectedItems.find((element) => {return item.name === element.name})){
+  const delItem = (item) => {
+    if(selectedItems.find((element) => {return item.name === element.name})){
 
-  //     item.flag="del";
+      // item.flag="del";
+      console.log(item);
+      axios.post('http://localhost:8080/data/games/del', item)
+        .then(response => {
+          // console.log("delItem: " + response.data);
+          // console.log(response.data);
+          if(response.data){
+            setSelectedItems(selectedItems.filter((element) => element.name != item.name));
+            console.log("Removed item");
 
-  //     axios.post('http://localhost:5000/api/items', item)
-  //       .then(response => {
-  //         console.log("delItem: " + response.data.name);
-  //         // setSelectedItems([...selectedItems, response.data]);
-  //         setSelectedItems(selectedItems.filter((element) => element.name != response.data.name));
-  //       })
-  //       .catch(error => {
-  //         console.error('There was an error deleting the item!', error);
-  //       });
+          }else{
+            console.log("Could not be deleted.");
+          }
+          // setSelectedItems([...selectedItems, response.data]);
+        })
+        .catch(error => {
+          console.error('There was an error deleting the item!', error);
+        });
 
 
-  //     console.log("Removed item");
-  //   }
-  //   else
-  //     console.log("Item does not exist.");
-  //     // setSelectedItems([...selectedItems, item]);
-  //   console.log(selectedItems);
+    }
+    else
+      console.log("Item does not exist.");
+      // setSelectedItems([...selectedItems, item]);
+    console.log(selectedItems);
 
-  // }
+  }
 
   console.log("getsteamglobtop: " + steam);
   
@@ -90,13 +97,13 @@ function GetSteamGlobalTop(steam, loading, error){
     <div class="container">
     <h3>Added items:</h3>
     <ul>
-    {/* {selectedItems.map((addedItem) => (
+    {selectedItems.map((addedItem) => (
       <li>
       <p key={addedItem.id}>{addedItem.name}</p>
       <img src={addedItem.logo} alt="Logo" />
       <button onClick={() => delItem(addedItem)} >{"Del"}</button>
       </li>
-    ))} */}
+    ))}
     </ul>
     </div>
     <div class="container">
