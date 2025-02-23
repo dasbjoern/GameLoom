@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import GetSteamGlobalTop from './GetSteamGlobalTop';
 
 function SearchSteam(){
-    
+
+
     const [searchText, setSearchText] = useState({searchsteam: ""});
     const [searchResult, setSearchResult] = useState([]); //temp, should be array.
     const searchString = (e) => {
@@ -28,54 +30,7 @@ function SearchSteam(){
 
     }; 
 
-
-    const [selectedItems, setSelectedItems] = useState([]);
-
-    const addItem = (add) => {
-
-        if(selectedItems.find((element) => {return add.name === element.name})){
-          
-          console.log("Already added");
-        }
-        else{
-          axios.post('http://localhost:8080/data/games/add', add)
-            .then(response => {
-              
-              setSelectedItems([...selectedItems, response.data]);
-    
-            })
-            .catch(error => {
-              console.error('There was an error adding the item!', error);
-            });
-        }
-        console.log(selectedItems);
-        
-      };
-
-
-    return (
-        <>
-        <form onSubmit={searchSteam}>
-            <label for="searchsteam">Search steam</label>
-            <input type="text" id="searchsteam" name="searchsteam" onChange={searchString} /><br></br>
-            <button type="submit">Search</button>
-        </form>
-        <div class="search-container">
-        <div class="container">
-        <ul>
-        {searchResult && searchResult.map( (item, index) => (
-         <li>
-            <p key={index}>{item.name}</p>
-            <img src={item.logo} alt="Logo" />
-            <button onClick={() => addItem(item)} >{"Add"}</button>
-        </li>
-        ))}
-        </ul>
-        </div>
-        </div>
-
-        </>
-    );
+    return {searchResult, searchString, searchSteam};
     
 }
 

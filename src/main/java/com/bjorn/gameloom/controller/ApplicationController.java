@@ -15,6 +15,11 @@ public class ApplicationController {
         public String homePage(){
             return "forward:/index.html";
         }
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/search")
+        public String searchPage(){
+            return "forward:/index.html";
+            }
     
     @PostMapping("/welcome")
     public String searchSteam(){
