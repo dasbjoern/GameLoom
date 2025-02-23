@@ -7,7 +7,10 @@ public class SteamGame {
     private String name;
     private String logo;
     
-
+    public SteamGame(){
+        this.name = "No Result";
+        this.logo = "";
+    }
     // public int getId(){return id;}
     // public void setId(int id){ this.id = id;}
 

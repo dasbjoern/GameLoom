@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Page from './Page.jsx'
 import ApiFetcher from './ApiFetcher.jsx'
+import SearchSteam from './SearchSteam.jsx'
 import axios from 'axios'
 
 
@@ -30,8 +31,6 @@ function GetSteamGlobalTop(steam, loading, error){
    
       
   const addItem = (add) => {
-    
-    
 
     if(selectedItems.find((element) => {return add.name === element.name})){
       
@@ -128,8 +127,6 @@ function GetSteamGlobalTop(steam, loading, error){
       </div>
     </div>);
 
-      
-
 }
 
 function App() {
@@ -148,6 +145,7 @@ function App() {
 
       <h1>Hello world</h1>
       <Page/>
+      <SearchSteam/>
       <button onClick={() => fetchData(url)} >{"Steam Global Top"}</button>
       {/* <button onClick={() => fetchData(urlTwo)} >{"Steam Online Coop TOP"}</button> */}
 

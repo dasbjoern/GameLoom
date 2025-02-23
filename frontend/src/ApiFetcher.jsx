@@ -29,25 +29,8 @@ function ApiFetcher(){
     };
 
     
-    //   {
-    //     // const url = "http://localhost:5173/api";
-    //     setLoading(true);
-    //     fetch(url)
-    //    .then((response) => response.json())
-    //    .then((data) => {
-    //      setSteam(data);
-    //     //  localStorage.setItem("steam", JSON.stringify(data));
-    //      setLoading(false);
-    //      console.log(data);
-    //    })
-    //   .catch((error) => {
-    //     setError(error);
-    //     setLoading(false);
-    //     console.error(error)
-    //   });
     
-
-    // };
+   
 
   return {steam, loading, error, fetchData};
 

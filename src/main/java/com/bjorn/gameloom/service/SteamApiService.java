@@ -18,13 +18,21 @@ public class SteamApiService {
     public SteamApiService(WebClient.Builder webClientBuilder){
         this.webClient = webClientBuilder.baseUrl("https://store.steampowered.com/search/results/").build();
     }
-
     public Mono<SteamResponse> fetchApiData(String endpoint){
-
+        
         return webClient.get()//.accept(MediaType.APPLICATION_JSON)
-                        .uri(endpoint)
-                        .retrieve()
-                        .bodyToMono(SteamResponse.class);
-                        // .collectList(); //sync/ blocking. For async use Mono<String>
+        .uri(endpoint)
+        .retrieve()
+        .bodyToMono(SteamResponse.class);
+        // .collectList(); //sync/ blocking. For async use Mono<String>
     }
+    // https://github.com/Revadike/InternalSteamWebAPI/wiki/Search-Apps
+    // https://steamcommunity.com/actions/SearchApps/team%20fortress%202
+
+    public String fetchApiSearchData(String endpoint){
+        WebClient.Builder webClientBuilder;
+
+        return "";
+    }
+
 }

@@ -21,10 +21,16 @@
   min-width: 160px;
   /* overflow-x: auto; */
   overflow-x: auto;
-
-
   
 }
+.search-container{
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-evenly;
+  padding-left: 20px;
+  flex-wrap: nowrap;
+}
+
 p {
   font-size: 16px;
 }
@@ -41,7 +47,6 @@ ul {
   overflow-x: auto;
   /* height: 100%; */
 }
-
 li {
   display: flex;
   justify-content: center;
