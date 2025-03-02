@@ -23,6 +23,6 @@ mvnw*
 
 application.properties
 
-steam.sql
+# steam.sql
 
 node_modules
