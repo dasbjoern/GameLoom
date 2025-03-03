@@ -6,7 +6,7 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
-public class Game {
+public class Game { //Add DTOs
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
