@@ -6,9 +6,12 @@ import ApiFetcher from './ApiFetcher.jsx'
 import axios from 'axios'
 import GetSteamGlobalTop from './GetSteamGlobalTop.jsx'
 import SearchSteam from './SearchSteam.jsx'
+import UserGames from './UserGames.jsx'
+import UserGamesView from './UserGamesView.jsx'
 
 
-const ListGames = ({gamelist, opfunc, optype, heading, loading, error}) => {
+const ListGames = ({gamelist, opfunc, optype, heading, loading, error, addusergame}) => {
+  
 
   return (
   <div class="container">
@@ -20,6 +23,9 @@ const ListGames = ({gamelist, opfunc, optype, heading, loading, error}) => {
     <p key={game.id}>{game.name}</p>
     <img src={game.logo} alt="Logo" />
     <button onClick={() => opfunc(game)} >{optype}</button>
+    <button onClick={() => addusergame(game)} >{"Like"}</button>
+    
+
     </li>
   ))}
   {loading && <p>Loading...</p>}
@@ -30,13 +36,17 @@ const ListGames = ({gamelist, opfunc, optype, heading, loading, error}) => {
 
 function Page() {
 
-  const url = "http://localhost:8080/api/hello"
+
+  const url = "http://localhost:8080/api/hello";
+
+  const {userGames, addUserGame, delUserGame} = UserGames();
   
   const {searchResult, searchString, searchSteam} = SearchSteam();
   
   const {steam, loading, error, fetchData} = ApiFetcher();
 
   const {selectedItems, addItem, delItem} = GetSteamGlobalTop();
+
 
   return (
     <>
@@ -48,15 +58,31 @@ function Page() {
               <button type="submit">Search</button>
          </form>
       <div class="search-container"> 
-      {searchResult && <ListGames gamelist={searchResult} opfunc={addItem} optype={"Add"} heading={"Search results:"}/>}
+
+      <div class="container">
+      
+        <h3>{"Liked games"}</h3>
+        <ul>
+        {userGames.map((game) => (
+          <li>
+          <p key={game.id}>{game.name}</p>
+          <img src={game.logo} alt="Logo" />
+          <button onClick={() => delUserGame(game)} >{"Unlike"}</button>
+          
+          </li>
+        ))}
+        </ul>
+        </div>
+
+      {searchResult && <ListGames gamelist={searchResult} opfunc={addItem} optype={"Add"} heading={"Search results:"} addusergame={addUserGame} />}
       </div>
       <button onClick={() => fetchData(url)} >{"Steam Global Top"}</button>
 
       <div class="lists">
-      <ListGames gamelist={selectedItems} opfunc={delItem} optype={"Del"} heading={"Added items:"}/>
+      {selectedItems && <ListGames gamelist={selectedItems} opfunc={delItem} optype={"Del"} heading={"Added items:"} addusergame={addUserGame} />}
 
       
-      {steam && <ListGames gamelist={steam} opfunc={addItem} optype={"Add"} heading={"Steam global top:"} loading={loading} error={error}/>}
+      {steam && <ListGames gamelist={steam} opfunc={addItem} optype={"Add"} heading={"Steam global top:"} loading={loading} error={error} addusergame={addUserGame}/>}
     
     </div>
 

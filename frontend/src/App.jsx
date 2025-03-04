@@ -26,11 +26,12 @@ function App() {
     <>
      <BrowserRouter>
       <Routes>
-        <Route path="/search" element={<SearchSteam />}/>
+        {/* <Route path="/search" element={<SearchSteam />}/> */}
+        
         <Route path="/welcome">
           <Route index element={<Page/>}/>
         </Route>
-          <Route path="/welcome" element={<SearchSteam />}/>
+          {/* <Route path="/welcome" element={<SearchSteam />}/> */}
 
       </Routes>
     

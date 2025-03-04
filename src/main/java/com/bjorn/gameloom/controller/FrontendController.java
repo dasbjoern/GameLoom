@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 public class FrontendController {
 
     // @Autowired
-    private SteamApiService steamApiService;
+    private final SteamApiService steamApiService;
     // @Autowired
     // private GameService gameService;
 
@@ -58,7 +58,7 @@ public class FrontendController {
             response = steamApiService.fetchApiData("?term="+term+"&json=1");
             games = response.block().getItems();
         }else{
-            games.add(new SteamGame());
+            games.add(new SteamGame()); //no result
         }
 
         return games;

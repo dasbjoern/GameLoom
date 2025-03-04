@@ -1,5 +1,7 @@
 package com.bjorn.gameloom.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 /*
  * https://store.steampowered.com/app/{appId}/ -> actual webpage of steam store.
@@ -19,6 +21,9 @@ public class Game { //Add DTOs
     
     private String appId;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true) // Removes UserGame if game is removed.
+    private List<UserGame> userGames;
+    
     public Long getId(){return id;}
     public void setId(Long id){ this.id = id;}
 
