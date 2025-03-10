@@ -30,7 +30,7 @@ public class SteamApiService {
     // https://steamcommunity.com/actions/SearchApps/team%20fortress%202
 
     public String fetchApiSearchData(String endpoint){
-        WebClient.Builder webClientBuilder;
+        
 
         return "";
     }
