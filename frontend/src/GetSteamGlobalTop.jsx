@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-function GetSteamGlobalTop(){
+function GetSteamGlobalTop({trigger}){
 
     // const url = "http://localhost:5173/api";
   
     const [selectedItems, setSelectedItems] = useState([]);
-  
+    
   
     useEffect(() => 
       {
@@ -19,7 +19,7 @@ function GetSteamGlobalTop(){
         .catch(error => {
           console.error('There was an error fetching the items!', error);
         });
-    }, []);
+    }, [trigger]);
      
         
     const addItem = (add) => {
@@ -50,7 +50,7 @@ function GetSteamGlobalTop(){
       
     };
   
-    const delItem = (item) => {
+    const delItem = (item, callback) => {
       if(selectedItems.find((element) => {return item.name === element.name})){
   
         // item.flag="del";
@@ -62,6 +62,7 @@ function GetSteamGlobalTop(){
             if(response.data){
               setSelectedItems(selectedItems.filter((element) => element.name != item.name));
               console.log("Removed item");
+              if(callback) callback();
   
             }else{
               console.log("Could not be deleted.");

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-function UserGames(){
+function UserGames({trigger}){
 
     const [userGames, setUserGames] = useState([]);
 
@@ -15,10 +15,10 @@ function UserGames(){
           .catch(error => {
             console.error('There was an error fetching the items!', error);
           });
-      }, []);
+      }, [trigger]);
 
 
-    const addUserGame = (add) => {
+    const addUserGame = (add, callback) => {
   
         if(userGames.find((element) => {return add.name === element.name})){
           
@@ -31,7 +31,7 @@ function UserGames(){
             .then(response => {
               
                 setUserGames([...userGames, response.data]);
-            
+                if(callback) callback();
     
             })
             .catch(error => {
@@ -42,7 +42,7 @@ function UserGames(){
         
       };
     
-      const delUserGame = (del) => {
+      const delUserGame = (del, callback) => {
 
         if(userGames.find((element) => {return del.name === element.name})){
     
@@ -53,6 +53,7 @@ function UserGames(){
               if(response.data){
                 setUserGames(userGames.filter((element) => element.name != del.name));
                 console.log("Removed usergame");
+                if(callback) callback();
     
               }else{
                 console.log("Could not be deleted.");
