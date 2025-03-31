@@ -45,23 +45,24 @@ public class GameController {
 
     @PostMapping("/add")
     public Game saveGame(@RequestBody Game game){
+
         return gameService.saveGame(game);
     }
     @PostMapping("/del")
     public boolean delGame(@RequestBody Game game){
-        System.out.println("\n DELETING" + game.getName());
+        System.out.println("\n DELETING " + game.getName());
 
         return gameService.deleteGame(game);
     }
     @PostMapping("/addUserGame")
     public Game addUserGame(@RequestBody Game game){
-        System.out.println("\n ADD UserGame" + game.getName());
+        System.out.println("\n ADD UserGame " + game.getName());
 
         return gameService.saveUserGames(game);
     }
     @PostMapping("/delUserGame")
     public boolean delUserGame(@RequestBody Game game){
-        System.out.println("\n DELETING UserGame" + game.getName());
+        System.out.println("\n DELETING UserGame " + game.getName());
 
         return gameService.deleteUserGame(game);
     }

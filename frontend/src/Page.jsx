@@ -10,42 +10,82 @@ import UserGames from './UserGames.jsx'
 import UserGamesView from './UserGamesView.jsx'
 
 
-const ListGames = ({gamelist, opfunc, optype, heading, loading, error, addusergame, updatelists}) => {
-  
-  
-  
-
-  return (
-  <div class="container">
-
-  <h3>{heading}</h3>
-  <ul>
-  {gamelist.map((game) => (
-    <li>
-    <p key={game.id}>{game.name}</p>
-    <img src={game.logo} alt="Logo" />
-    {(optype==="Del") && (<><button onClick={() => updatelists(game, opfunc)} >{optype}</button>
-                          <button onClick={() => updatelists(game, addusergame)} >{"Like"}</button></>)}
-    {(optype==="Skip") && <button onClick={() => updatelists(game, addusergame)} >{"Like"}</button>}
-    
-
-    </li>
-  ))}
-  {loading && <p>Loading...</p>}
-  {error && <p>Error</p>}
-  </ul>
-  </div>);
-}
 
 function Page() {
+
+  const redirectSteam = (appid) => {
+    window.open("https://store.steampowered.com/app/" + appid.split("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/")[1].split("/")[0], '_blank').focus();
+  }
+
+  const ListGames = ({gamelist, opfunc, optype, heading}) => {
+
+    return (
+    <div class="container">
   
+    <h3>{heading}</h3>
+    <ul>
+    {gamelist.map((game) => (
+      <li>
+      <p key={game.id}>{game.name}</p>
+      <img src={game.logo} alt="Logo" onClick={() => redirectSteam(game.logo)} />
+      
+      {(optype==="Del") && (<button onClick={() => updateLists(game, opfunc)} >{optype}</button>)}
+      {/* {console.log("likedgames in func: ")} */}
+      {/* {console.log(likedGames[0])} */}
+      {(likedGames.some( likedgame => 
+        (likedgame.name === game.name))) ? (
+
+        
+          
+            <>
+            <button onClick={() => 
+              {updateLists(game, delUserGame); 
+              // setLikedGames(likedGames.filter(item => item.name !== game.name));
+              }} >{"Unlike"}</button>
+            {/* {setLikedGames(likedGames.filter(item => item.id !== game.id))} */}
+
+            </>
+            
+        )
+            :
+            
+            <>
+            
+            <button onClick={() => updateLists(game, addUserGame)} >{"Like"}</button>
+            </>
+  }
+
+         
+       
+  
+
+    {/* {(optype==="Del") && (<><button onClick={() => updateLists(game, opfunc)} >{optype}</button>
+    <button onClick={() => updateLists(game, delUserGame)} >{"Unlike"}</button></>)}
+    {(optype==="Skip") && <button onClick={() => updateLists(game, delUserGame)} >{"Unlike"}</button>}
+     
+   
+        {(optype==="Del") && (<><button onClick={() => updateLists(game, opfunc)} >{optype}</button>
+                              <button onClick={() => updateLists(game, addUserGame)} >{"Like"}</button></>)}
+        {(optype==="Skip") && <button onClick={() => updateLists(game, addUserGame)} >{"Like"}</button>} */}
+  
+      
+      
+  
+      </li>
+    ))}
+    {loading && <p>Loading...</p>}
+    {error && <p>Error</p>}
+    </ul>
+    </div>);
+  }
+
   const [trigger, setTrigger] = useState(0);
   
   const updateLists = (game, afunc) => {
 
     afunc(game, () => {
       setTrigger(prev => prev + 1);
-
+      setLikedGames(likedGames.filter(item => item.name !== game.name));
     });
     // addItem(game);
     
@@ -59,7 +99,7 @@ function Page() {
  
 
 
-  const {userGames, addUserGame, delUserGame} = UserGames({trigger});
+  const {userGames, likedGames, setLikedGames, addUserGame, delUserGame} = UserGames({trigger});
   
   const {searchResult, searchString, searchSteam} = SearchSteam();
   
@@ -67,7 +107,11 @@ function Page() {
 
   const {selectedItems, addItem, delItem} = GetSteamGlobalTop({trigger});
 
-
+  // const [likedGames, setLikedGames] = useState(userGames);
+  // console.log("likedgames ");
+  // console.log(likedGames);
+  // let likedGames = [...userGames];
+ 
 
   return (
     <>
@@ -87,7 +131,7 @@ function Page() {
         {userGames.map((game) => (
           <li>
           <p key={game.id}>{game.name}</p>
-          <img src={game.logo} alt="Logo" />
+          <img src={game.logo} alt="Logo" onClick={() => redirectSteam(game.logo)} />
           <button onClick={() => delUserGame(game)} >{"Unlike"}</button>
           
           </li>
@@ -95,15 +139,15 @@ function Page() {
         </ul>
         </div>
 
-      {searchResult && <ListGames gamelist={searchResult} opfunc={addItem} optype={"Add"} heading={"Search results:"} addusergame={addUserGame} updatelists={updateLists}/>}
+      {searchResult && <ListGames gamelist={searchResult} opfunc={addUserGame} optype={"Skip"}/>}
       </div>
       <button onClick={() => fetchData(url)} >{"Steam Global Top"}</button>
 
       <div class="lists">
-      {selectedItems && <ListGames gamelist={selectedItems} opfunc={delItem} optype={"Del"} heading={"Added items:"} addusergame={addUserGame} updatelists={updateLists}/>}
+      {selectedItems && <ListGames gamelist={selectedItems} opfunc={delItem} optype={"Del"} heading={"Added items:"} />}
 
       
-      {steam && <ListGames gamelist={steam} opfunc={addUserGame} optype={"Skip"} heading={"Steam global top:"} loading={loading} error={error} addusergame={addUserGame} updatelists={updateLists}/>}
+      {steam && <ListGames gamelist={steam} opfunc={addUserGame} optype={"Skip"} heading={"Steam global top:"}/>}
     
     </div>
 

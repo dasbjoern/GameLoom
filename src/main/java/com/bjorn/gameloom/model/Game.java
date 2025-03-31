@@ -19,6 +19,7 @@ public class Game { //Add DTOs
     
     private String logo;
     
+    @Column(name = "app_id")
     private String appId;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true) // Removes UserGame if game is removed.

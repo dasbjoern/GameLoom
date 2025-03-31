@@ -4,6 +4,8 @@ import axios from 'axios'
 function UserGames({trigger}){
 
     const [userGames, setUserGames] = useState([]);
+    const [likedGames, setLikedGames] = useState([]);
+
 
     useEffect(() => 
         {
@@ -11,6 +13,8 @@ function UserGames({trigger}){
           .then(response => {
             console.log("test" + response.data);
             setUserGames(response.data);
+            setLikedGames(response.data);
+
           })
           .catch(error => {
             console.error('There was an error fetching the items!', error);
@@ -31,6 +35,7 @@ function UserGames({trigger}){
             .then(response => {
               
                 setUserGames([...userGames, response.data]);
+                setLikedGames([...likedGames, response.data]);
                 if(callback) callback();
     
             })
@@ -52,6 +57,7 @@ function UserGames({trigger}){
             
               if(response.data){
                 setUserGames(userGames.filter((element) => element.name != del.name));
+                setLikedGames(likedGames.filter((element) => element.name != del.name));
                 console.log("Removed usergame");
                 if(callback) callback();
     
@@ -70,7 +76,7 @@ function UserGames({trigger}){
     
       }
 
-      return {userGames, addUserGame, delUserGame};
+      return {userGames, likedGames, setLikedGames, addUserGame, delUserGame};
 
 
 }
